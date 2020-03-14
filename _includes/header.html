@@ -7,7 +7,6 @@
     <a class="site-title" rel="author" href="{{ "/" | relative_url }}">
       {{ site.title | escape }}
     </a>
-    <span class="site-subtitle color-accent">{{ site.subtitle | escape }}</span>
     
 
     {%- if titles_size > 0 -%}
@@ -32,6 +31,7 @@
       </nav>
     {%- endif -%}
   </div>
+  <span class="site-subtitle color-dark">{{ site.subtitle | escape }}</span>
   <div class="social-links">
     {%- include social.html -%}
   </div>

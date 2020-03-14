@@ -1,7 +1,9 @@
 .site-subtitle {
     font-size: small;
     position: static;
-    margin-left:5em;
+    margin: 0 auto;
+    display: table;
+    line-height: normal;
 }
 
 .page-heading, .post-title {
