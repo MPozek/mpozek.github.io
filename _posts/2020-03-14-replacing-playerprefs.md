@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Replacing PlayerPrefs"
-date:   2020-03-11 15:08:00 +0100
+date:   2020-03-14 +0100
 tags: unity, gamedev, c#
 summary: "You might’ve been using Unity for quite some time before you first encountered the problem of saving your game. Unity comes well equipped for a variety of tasks, but saving (and loading) is not one of them..."
 ---
