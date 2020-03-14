@@ -3,3 +3,44 @@
     position: static;
     margin-left:5em;
 }
+
+.page-heading, .post-title {
+    font-size: 2rem;
+    font-weight: 350;
+    letter-spacing: -1px;
+}
+
+a.page-link:hover, a.post-link:hover {
+    color:#dd6e42 !important;
+}
+
+.color-accent {
+    color:#dd6e42;
+}
+.color-subdue {
+    color:#e8dab2;
+}
+.color-dark {
+    color: #565E62 !important;
+}
+.color-light {
+    color: #e2e9ec
+}
+
+.social-media-list li a:hover {
+    border-color: #dd6e42;
+}
+.social-media-list li a:hover .grey {
+    color: #dd6e42;
+}
+
+/*code highlight
+.highlight pre, code {
+    background-color: #e2e9ec;
+}
+.highlight .nf {
+    color: #dd6e42;
+}
+.highlight .nc {
+    color: #565E62;
+}*/
