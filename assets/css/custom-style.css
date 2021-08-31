@@ -36,13 +36,51 @@ a.page-link:hover, a.post-link:hover {
     color: #dd6e42;
 }
 
-/*code highlight
-.highlight pre, code {
-    background-color: #e2e9ec;
+.home {
+    display: flex;
 }
-.highlight .nf {
-    color: #dd6e42;
+
+@media screen and (min-width: 800px) {
+    .home {
+        flex-direction: row;
+    }
+    .home>.col {
+        min-width: 46%;
+        padding: 0;
+    }
+    .home>:nth-child(2n) {
+        padding-left: 8%;
+    }
 }
-.highlight .nc {
-    color: #565E62;
-}*/
+@media screen and (max-width: 800px) {
+    .home {
+        flex-direction: column;
+        flex-wrap: wrap;
+        margin:50px;
+    }
+}
+
+.home .post-link {
+    color: #2a7ae2;
+}
+.home .cv-title-small {
+    color: #2a7ae2;
+    margin: 0;
+}
+
+.home>.col>li {
+    list-style-type: none; /* Remove bullets */
+    padding: 0 0 50px 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+
+.cv-subtitle {
+    font-size: small;
+    line-height: normal;
+}
+
+.wrapper {
+    padding: 0;
+}

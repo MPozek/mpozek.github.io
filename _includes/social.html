@@ -20,6 +20,7 @@
   {%- if social.devto -%}<li><a href="https://dev.to/{{ social.devto | cgi_escape | escape }}" title="{{ social.devto | escape }}"><svg class="svg-icon grey"><use xlink:href="{{ '/assets/minima-social-icons.svg#devto' | relative_url }}"></use></svg></a></li>{%- endif -%}
   {%- if social.discord -%}<li><a href="https://discordapp.com/users/{{ social.discord | cgi_escape | escape }}" title="{{ social.discord_name | escape }}"><svg class="svg-icon grey"><use xlink:href="{{ '/assets/discord.svg#discord' | relative_url }}"></use></svg></a></li>{%- endif -%}
 
+  <!--
   <li>
     <a href="{{ 'feed.xml' | relative_url }}">
       <svg class="svg-icon grey">
@@ -27,4 +28,5 @@
       </svg>
     </a>
   </li>
+  -->
 </ul>
