@@ -76,6 +76,23 @@ a.page-link:hover, a.post-link:hover {
     flex-wrap: wrap;
 }
 
+.home>.col>li ul {
+    margin-left: 0;
+}
+
+.home>.col>li ul>li {
+    list-style-type: none;
+}
+
+.home>.col>li ul>li::before {
+    content: "\2010";
+    position: relative;
+    left: 0;
+    padding: 2px 8px;
+    font-size: 1em;
+    color: #2a7ae2;
+}
+
 .cv-subtitle {
     font-size: small;
     line-height: normal;
