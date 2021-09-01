@@ -93,6 +93,10 @@ a.page-link:hover, a.post-link:hover {
     color: #2a7ae2;
 }
 
+.home h3 {
+    margin-bottom: 5px;
+}
+
 .cv-subtitle {
     font-size: small;
     line-height: normal;
@@ -101,3 +105,28 @@ a.page-link:hover, a.post-link:hover {
 .wrapper {
     padding: 0;
 }
+
+body.printer-friendly {
+    font-size: 80%;
+}
+
+.printer-friendly .social-links, .printer-friendly .site-footer {
+    display: none;
+}
+
+.btn-printer-friendly {
+    background: none;
+    box-shadow: none;
+    border: none;
+    color: #2a7ae2;
+}
+
+.btn-printer-friendly:hover {
+    text-decoration: underline;
+}
+
+/*
+night mode accent blue -- 7AC1FF
+night mode background -- 1E1E1E
+text color - fff
+*/

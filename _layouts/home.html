@@ -52,3 +52,12 @@ layout: default
   {%- endif -%}
 
 </div>
+
+
+<button class="btn-printer-friendly" onclick="btnPrinterFriendly_onClick()">toggle print version</button>
+
+<script>
+  function btnPrinterFriendly_onClick() {
+    document.body.classList.toggle('printer-friendly');
+  }
+</script>
