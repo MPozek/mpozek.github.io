@@ -1,0 +1,149 @@
+<body>
+
+    <div id="controls" style="margin:5px">
+        <div>
+            Sample step:
+            <input type="number" id="sampleStep" min="0.01" max="2" value="0.25">
+        </div>
+        <div>
+            Sample count:
+            <input type="number" id="sampleCount" min="4" max="256" value="64">
+        </div>
+        <div>
+            Charge separation:
+            <input type="number" id="chargeSeparation" min="5" max="600" value="150">
+        </div>
+        <div>
+            Charge size (sampling offset):
+            <input type="number" id="chargeSize" min="0.1" max="60" value="5">
+        </div>
+
+        <button onclick="recalculate()">Recalculate</button>
+    </div>
+
+    <canvas id="myCanvas" width="600" height="600" style="border:1px solid #000000; background: white;">
+    </canvas> 
+    
+    <script>
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d", { alpha: false });
+
+        function v2(x, y) {
+            return { x: x, y: y }
+        }
+
+        function v2Add(a, b) {
+            return { x: a.x + b.x, y: a.y + b.y }
+        }
+        function v2Subtract(a, b) {
+            return { x: a.x - b.x, y: a.y - b.y };
+        }
+        function v2SqrMagnitude(a) {
+            return a.x * a.x + a.y * a.y;
+        }
+        function v2Magnitude(a) {
+            return Math.sqrt(a.x * a.x + a.y * a.y);
+        }
+        function v2Normalized(a) {
+            return v2Multiply(a, 1.0 / v2Magnitude(a));
+        }
+
+        function v2Multiply(a, t) {
+            return { x: a.x * t, y: a.y * t }
+        }
+
+        function v2Scale(a, b) {
+            return { x: a.x * b.x, y: a.y * b.y }
+        }
+
+        function moveTo(ctx, p) {
+            ctx.moveTo(p.x, p.y);
+        }
+        function lineTo(ctx, p) {
+            ctx.lineTo(p.x, p.y);
+        }
+        function drawCircle(ctx, p, r) {
+            ctx.beginPath();
+            ctx.fillStyle = 'blue';
+            ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        
+        
+        function recalculate() {
+            var sampleStep = Number(document.getElementById("sampleStep").value);
+            var sampleCount = Number(document.getElementById("sampleCount").value);
+            var chargeSeparation = Number(document.getElementById("chargeSeparation").value);
+            var chargeSize = Number(document.getElementById("chargeSize").value);
+
+            var canvasSize = v2(c.width, c.height);
+            ctx.clearRect(0, 0, canvasSize.x, canvasSize.y);
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, canvasSize.x, canvasSize.y);
+
+            var centerPoint = v2Scale(canvasSize, v2(0.5, 0.5));
+
+            var chargePositions = [v2Add(centerPoint, v2(chargeSeparation * 0.5, 0)), v2Add(centerPoint, v2(-chargeSeparation * 0.5, 0))]
+
+            function forceFunction(samplePoint) {
+                var force = v2(0, 0);
+                chargePositions.forEach(charge => {
+                    var radiVector = v2Subtract(samplePoint, charge);
+                    var forceFactor = 1.0 / v2SqrMagnitude(radiVector);
+                    var forceDirection = v2Normalized(radiVector);
+                    force = v2Add(force, v2Multiply(forceDirection, forceFactor));
+                });
+                return force;
+            }
+            
+            // draw charges
+            drawCircle(ctx, chargePositions[0], chargeSize);
+            drawCircle(ctx, chargePositions[1], chargeSize);
+
+            function drawForceLine(pos) {
+                var points = [pos];
+                
+                var overflowCounter = 2048;
+                while (overflowCounter > 0 && pos.x < canvasSize.x && pos.y < canvasSize.y && pos.x > 0 && pos.y > 0) {
+                    var deltaMove = v2Multiply(v2Normalized(forceFunction(pos)), sampleStep);
+                    pos = v2Add(pos, deltaMove);
+                    points.push(pos);
+                    overflowCounter -= 1;
+                }
+
+                ctx.beginPath();
+                for (var i = 0; i < points.length - 1; i++) {
+                    var pos = points[i];
+                    moveTo(ctx, pos);
+                    lineTo(ctx, points[i+1]);
+                }
+                ctx.stroke();
+            }
+            // draw samples
+            for (var i = 0; i < sampleCount; i++) {
+                var angle = i * Math.PI * 2.0 / sampleCount;
+                var offset = v2Multiply(v2(Math.cos(angle), Math.sin(angle)), chargeSize);
+                
+                chargePositions.forEach(charge => {
+                    drawForceLine(v2Add(charge, offset));
+                });
+            }
+        }
+        
+
+        function getMousePos(canvas, evt) {
+            var rect = canvas.getBoundingClientRect();
+            return {
+                x: evt.clientX - rect.left,
+                y: evt.clientY - rect.top
+            };
+        }
+
+        function draw(evt) {
+            var pos = getMousePos(c, evt);
+            drawForceLine(pos);
+        }
+
+        c.addEventListener("click", draw);
+    </script>
+</body>
