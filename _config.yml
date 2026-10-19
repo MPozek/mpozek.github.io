@@ -32,7 +32,7 @@ minima:
 
   # generate social links in footer
   social_links:
-    twitter: miki_p0
+    # twitter: miki_p0
     github:  mpozek
     discord: "193395425686978560"
     discord_name: mikip0#6417
@@ -51,6 +51,10 @@ minima:
     # googleplus: +jekyll
     # microdotblog: jekyll
     # keybase: jekyll
+
+    mastodon:
+    - username: miki_p0
+      instance: peoplemaking.games
 
     # Mastodon instances
     # mastodon:
